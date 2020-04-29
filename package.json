@@ -1,0 +1,19 @@
+{
+  "name": "react-native-wirecard",
+  "version": "1.0.0",
+  "description": "wirecard react-native plug",
+  "main": "src/index",
+  "scripts": {
+    "test": "echo 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.heytea.com/react-native-plugs/react-native-wirecard.git"
+  },
+  "keywords": [
+    "wirecard",
+    "react-native"
+  ],
+  "author": "heytea",
+  "license": "MIT"
+}

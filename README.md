@@ -1,1 +1,1 @@
-# react-native-heytea-wirecard
+wirecard react-native 插件
