@@ -11,6 +11,6 @@ package com.heytea.wirecard
 
 class ConstantValues {
     companion object {
-        var ACTION_PAYMENT_RESPONSE = "com.heytea.wirecard.PAYMENT_RESPONSE"
+        var ACTION_PAYMENT_RESPONSE = "com.heytea.PAYMENT_RESPONSE"
     }
 }
