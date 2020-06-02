@@ -1,19 +1,36 @@
 {
-  "name": "react-native-wirecard",
+  "name": "@heytea/react-native-wirecard",
   "version": "1.0.0",
   "description": "wirecard react-native plug",
   "main": "src/index",
+  "files": [
+    "README.md",
+    "android",
+    "src",
+    "ios",
+    "RCTWirecard.podspec"
+  ],
   "scripts": {
     "test": "echo 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://git.heytea.com/react-native-plugs/react-native-wirecard.git"
+    "url": "git+https://github.com/heytea/react-native-heytea-wirecard.git"
   },
   "keywords": [
     "wirecard",
     "react-native"
   ],
   "author": "heytea",
-  "license": "MIT"
+  "license": "MIT",
+  "licenseFilename": "LICENSE",
+  "readmeFilename": "README.md",
+  "peerDependencies": {
+    "react": "^16.8.1",
+    "react-native": ">=0.60.0-rc.0 <1.0.x"
+  },
+  "devDependencies": {
+    "react": "^16.9.0",
+    "react-native": "^0.61.5"
+  }
 }
