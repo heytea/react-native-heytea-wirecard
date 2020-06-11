@@ -14,7 +14,6 @@ import com.wirecard.ecom.model.*
 import com.wirecard.ecom.model.out.PaymentResponse
 import com.wirecard.ecom.util.Observer
 import java.math.BigDecimal
-import java.util.*
 
 /**
  * Package     ：com.heytea.wirecard
@@ -25,7 +24,7 @@ import java.util.*
  */
 class RNWirecardModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext), Observer<PaymentResponse> {
 
-    private lateinit var promise: Promise
+    private var promise: Promise? = null;
     private var reactContext: ReactApplicationContext
 
 
@@ -64,7 +63,7 @@ class RNWirecardModule(reactContext: ReactApplicationContext) : ReactContextBase
 
         // 免密支付需要
         if (payParam.hasKey("maskedAccountNumber") && payParam.hasKey("tokenId")) {
-            cardToken.tokenId = payParam.getString("payParam").toString()
+            cardToken.tokenId = payParam.getString("tokenId").toString()
             cardToken.maskedAccountNumber = payParam.getString("maskedAccountNumber").toString()
         }
 
@@ -113,8 +112,9 @@ class RNWirecardModule(reactContext: ReactApplicationContext) : ReactContextBase
         if (payParam.hasKey("mantissa") && payParam.hasKey("exponent")) {
             var scale: Double = Math.pow(10.0, payParam.getDouble("exponent"))
             val amount: BigDecimal = BigDecimal(payParam.getInt("mantissa")).multiply(BigDecimal(scale))
+            val result = amount.setScale(2, BigDecimal.ROUND_DOWN)
             // TODO
-            paymentBuilder.setAmount(amount)
+            paymentBuilder.setAmount(result)
         }
 
         var payment: CardPayment = paymentBuilder.build()
@@ -151,7 +151,6 @@ class RNWirecardModule(reactContext: ReactApplicationContext) : ReactContextBase
         payment.isoTransactionType = IsoTransactionType.QUASI_CASH_TRANSACTION  // iso 交易类型
 
 
-
         if (currentActivity is Activity) {
             Client(currentActivity!!, "https://" + host, 1000).startPayment(payment)
 //            Client(currentActivity!!, host, 1000).startPayment(payment)
@@ -160,20 +159,32 @@ class RNWirecardModule(reactContext: ReactApplicationContext) : ReactContextBase
     }
 
 
-    class PaymentBroadCastReceiver : BroadcastReceiver() {
+    inner class PaymentBroadCastReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             var bundle = intent.extras
             var response = bundle.get("response") as PaymentResponse
-            var result = ResponseHelper.getFormattedResponse(response)
+            var payment = response.payment;
+            var transactionState: String? = payment?.transactionState
+            var code:Int = response.responseCode;
+            var map = Arguments.createMap()
+            if(transactionState.equals("success")) {
+                map.putInt("transactionState",1)
+            }else {
+                map.putInt("transactionState",0)
+            }
+            map.putInt("code",code)
+            var rnWirecardModule = this@RNWirecardModule //获取外部类的成员变量
+            rnWirecardModule.promise?.resolve(map)
             println("~~~~~~~~~广播通知回调~~~~~~~~~~~`")
-            println(result)
+            println(response)
             println("~~~~~~~~~广播通知回调~~~~~~~~~~~`")
 
         }
     }
 
+
     override fun onObserve(eventMessage: PaymentResponse) {
-        promise.resolve(eventMessage)
+        promise?.resolve(eventMessage)
     }
 
 
