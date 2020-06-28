@@ -18,9 +18,11 @@ const { WirecardPay } = NativeModules;
  * param.orderId number
  * param.orderDetail string
  */
- export const cardPay = param =>
-  new Promise(resolve => {
+export function cardPay(param) {
+   return new Promise(resolve => {
     WirecardPay.cardPay(param).then(res => {
       resolve(res);
     });
   });
+ }
+  

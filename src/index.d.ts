@@ -1,4 +1,4 @@
-declare module "react-native-wirecard" {
+declare module "@heytea/react-native-wirecard" {
     export interface ICardPayParam {
         env: "TEST" | "SingaporeTEST" | "PROD" | "SingaporePROD";
         merchantAccountId: string;
