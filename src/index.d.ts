@@ -14,6 +14,7 @@ declare module "@heytea/react-native-wirecard" {
         maskedAccountNumber?: string;
         needThreeD?: number;
         orderId?: number;
+        requestedAmount: string;
     }
 
     export interface ICardPayResponse {

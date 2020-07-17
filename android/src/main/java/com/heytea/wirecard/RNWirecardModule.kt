@@ -109,11 +109,8 @@ class RNWirecardModule(reactContext: ReactApplicationContext) : ReactContextBase
         }
 
         // 支付金额
-        if (payParam.hasKey("mantissa") && payParam.hasKey("exponent")) {
-            var scale: Double = Math.pow(10.0, payParam.getDouble("exponent"))
-            val amount: BigDecimal = BigDecimal(payParam.getInt("mantissa")).multiply(BigDecimal(scale))
-            val result = amount.setScale(2, BigDecimal.ROUND_DOWN)
-            // TODO
+        if (payParam.hasKey("requestedAmount")) {
+            val result = BigDecimal(payParam.getString("requestedAmount"))
             paymentBuilder.setAmount(result)
         }
 

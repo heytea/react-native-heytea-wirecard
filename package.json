@@ -1,6 +1,6 @@
 {
   "name": "@heytea/react-native-wirecard",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "wirecard react-native plug",
   "main": "src/index",
   "files": [
