@@ -159,7 +159,7 @@ class RNWirecardModule(reactContext: ReactApplicationContext) : ReactContextBase
     inner class PaymentBroadCastReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             var bundle = intent.extras
-            var response = bundle.get("response") as PaymentResponse
+            var response = bundle?.get("response") as PaymentResponse
             var payment = response.payment;
             var transactionState: String? = payment?.transactionState
             var code:Int = response.responseCode;
