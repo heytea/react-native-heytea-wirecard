@@ -13,7 +13,7 @@ declare module "@heytea/react-native-wirecard" {
         tokenId?: string;
         maskedAccountNumber?: string;
         needThreeD?: number;
-        orderId?: number;
+        orderId?: string;
         requestedAmount: string;
     }
 
