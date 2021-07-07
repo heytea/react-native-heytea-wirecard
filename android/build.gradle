@@ -1,6 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
 
 // 获取项目配置  否则获取 gradle.properties 配置
@@ -39,21 +37,7 @@ android {
 
 }
 
-
-repositories {
-    maven {
-        url  "https://dl.bintray.com/wirecard/ecom-android"
-    }
-}
-
-def kotlinVersion = getExtOrDefault('kotlinVersion')
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.0.2'
-    implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
     implementation 'com.facebook.react:react-native:+'
-    api "com.wirecard.ecom:card:$wirecardEcomLibraryVersion"
 }
